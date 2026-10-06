@@ -20,6 +20,9 @@ import { useSelector } from "react-redux";
 import ProductCard from "./components/ProductCard";
 import SearchBar from "./components/SearchBar";
 
+import { logSearchPerformed } from './utils/analytics';
+
+
 const API_URL =
   "https://dummyjson.com/products";
 
@@ -65,9 +68,6 @@ export default function HomeScreen() {
   const [initialLoad, setInitialLoad] =
     useState(true);
 
-  /*
-   * Fetch products
-   */
   const fetchProducts = async ({
     currentSkip = 0,
     searchText = "",
@@ -123,11 +123,13 @@ export default function HomeScreen() {
       setHasMore(
         newSkip < data.total
       );
+      return data;
     } catch (error) {
       console.log(
         "Product API Error:",
         error
       );
+      return null;
     }
   };
 
@@ -168,14 +170,22 @@ export default function HomeScreen() {
         setSkip(0);
         setHasMore(true);
 
-        await fetchProducts({
-          currentSkip: 0,
-          searchText: search,
-          append: false,
-        });
+       const data =
+          await fetchProducts({
+            currentSkip: 0,
+            searchText: search,
+            append: false,
+          });
 
         setLoading(false);
-      }, 500);
+
+        if (search.trim()) {
+          logSearchPerformed(
+            search.trim(),
+            data?.products?.length ?? 0
+          );
+        }
+      }, 1000);
 
     return () =>
       clearTimeout(timer);

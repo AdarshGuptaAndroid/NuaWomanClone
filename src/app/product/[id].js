@@ -15,6 +15,11 @@ import {
 } from "react-native";
 
 import {
+  logProductViewed,
+  logAddToCart,
+} from '../utils/analytics';
+
+import {
   useLocalSearchParams,
 } from "expo-router";
 
@@ -58,6 +63,7 @@ export default function ProductDetails() {
           await response.json();
 
         setProduct(data);
+        logProductViewed(data.id, data.title);
       } catch (error) {
         console.log(
           "Product detail error:",

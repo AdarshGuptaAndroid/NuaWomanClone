@@ -1,11 +1,14 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Stack } from "expo-router";
-import { useEffect, useState } from "react";
-import { ActivityIndicator, View } from "react-native";
+import { useEffect, useRef, useState } from "react";
+import { ActivityIndicator, AppState, View } from "react-native";
 import { Provider, useDispatch, useSelector } from "react-redux";
 
 import { setCart } from "./redux/cartSlice";
 import { store } from "./redux/store";
+import {
+  logAppBackgrounded,
+} from "./utils/analytics";
 
 const CART_KEY = "@ecommerce_cart";
 
@@ -15,6 +18,9 @@ function AppContent() {
   const cart = useSelector((state) => state.cart.items);
 
   const [hydrated, setHydrated] = useState(false);
+  const appState = useRef(
+    AppState.currentState
+  );
 
   useEffect(() => {
     const loadCart = async () => {
@@ -44,6 +50,30 @@ function AppContent() {
       console.log("Failed to save cart:", error);
     });
   }, [cart, hydrated]);
+
+  useEffect(() => {
+    const subscription =
+      AppState.addEventListener(
+        "change",
+        (nextAppState) => {
+
+          if (
+            appState.current === "active" &&
+            nextAppState === "background"
+          ) {
+            logAppBackgrounded();
+          }
+
+          appState.current =
+            nextAppState;
+        }
+      );
+
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
 
   if (!hydrated) {
     return (
