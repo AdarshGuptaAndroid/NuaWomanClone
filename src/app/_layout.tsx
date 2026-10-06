@@ -64,6 +64,7 @@ function AppContent() {
       <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="cart" options={{ title: "My Cart" }} />
       <Stack.Screen name="products" options={{ title: "Product Details" }} />
+      <Stack.Screen name="returnPolicy" options={{ title: "Return Policy"}} />
     </Stack>
   );
 }

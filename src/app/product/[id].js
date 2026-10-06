@@ -1,22 +1,25 @@
 import {
-    useEffect,
-    useState,
+  useEffect,
+  useState,
 } from "react";
 
 import {
-    ActivityIndicator,
-    Dimensions,
-    Image,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  ActivityIndicator,
+  Dimensions,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 
 import {
-    useLocalSearchParams,
+  useLocalSearchParams,
 } from "expo-router";
+
+import { useRouter } from "expo-router";
+
 
 import { useDispatch } from "react-redux";
 
@@ -26,6 +29,8 @@ const { width } =
   Dimensions.get("window");
 
 export default function ProductDetails() {
+
+  const router = useRouter();
   const { id } =
     useLocalSearchParams();
 
@@ -90,7 +95,7 @@ export default function ProductDetails() {
     product.price -
     (product.price *
       product.discountPercentage) /
-      100;
+    100;
 
   const images =
     product.images?.length
@@ -277,6 +282,14 @@ export default function ProductDetails() {
               "N/A"}
           </Text>
         </View>
+        <TouchableOpacity
+          style={styles.returnPolicyButton}
+          onPress={() => router.push("/returnPolicy")}
+        >
+          <Text style={styles.returnPolicyText}>
+            View Return Policy
+          </Text>
+        </TouchableOpacity>
 
         {/* Add to Cart */}
 
@@ -419,5 +432,19 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  returnPolicyButton: {
+    marginTop: 20,
+    paddingVertical: 14,
+    borderWidth: 1,
+    borderColor: "#111",
+    borderRadius: 8,
+    alignItems: "center",
+  },
+
+  returnPolicyText: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#111",
   },
 });
