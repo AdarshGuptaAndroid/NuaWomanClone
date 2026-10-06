@@ -1,7 +1,9 @@
+import React from "react";
+
 import {
-    StyleSheet,
-    TextInput,
-    View,
+  View,
+  TextInput,
+  StyleSheet,
 } from "react-native";
 
 export default function SearchBar({
@@ -16,6 +18,9 @@ export default function SearchBar({
         placeholder="Search products..."
         placeholderTextColor="#999"
         style={styles.input}
+        returnKeyType="search"
+        autoCapitalize="none"
+        autoCorrect={false}
       />
     </View>
   );
@@ -32,5 +37,6 @@ const styles = StyleSheet.create({
 
   input: {
     fontSize: 16,
+    color: "#111",
   },
 });
