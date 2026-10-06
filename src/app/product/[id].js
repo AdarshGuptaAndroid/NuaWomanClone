@@ -122,6 +122,11 @@ export default function ProductDetails() {
             ),
         })
       );
+      logAddToCart(
+      product.id,
+      product.title,
+      1
+    );
     };
 
   return (

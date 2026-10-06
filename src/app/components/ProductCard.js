@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 
 // import { addToCart } from ".app/redux/cartSlice";
 import { addToCart } from "../redux/cartSlice";
+import { logAddToCart } from '../utils/analytics';
 export default function ProductCard({
   product,
 }) {
@@ -33,6 +34,11 @@ export default function ProductCard({
           discountedPrice.toFixed(2)
         ),
       })
+    );
+    logAddToCart(
+      product.id,
+      product.title,
+      1
     );
   };
 
