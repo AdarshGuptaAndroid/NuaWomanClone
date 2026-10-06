@@ -1,4 +1,3 @@
-import React from "react";
 import { StyleSheet, View } from "react-native";
 import { WebView } from "react-native-webview";
 
@@ -7,7 +6,7 @@ export default function ReturnPolicy() {
     <View style={styles.container}>
       <WebView
         source={{
-          uri: "https://dummyjson.com/",
+          uri: "https://nuawoman.com/returns-and-cancellations?srsltid=AU7gw4VUMPPhEV1J4maJirM9Tp7NlpjabNhLB2WXMHS6FXMZ7625t6oF",
         }}
         style={styles.webview}
         startInLoadingState
