@@ -1,56 +1,69 @@
-# Welcome to your Expo app 👋
+React Native - e-Commerce App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A simple ecommerce product listing app built with React Native, Expo Router, JavaScript, and Redux Toolkit.
 
-## Get started
+The app includes product listing with pagination, search, product details, cart management, offline/error handling, API retry with exponential backoff, and a WebView for the Return Policy.
 
-1. Install dependencies
+Tech Stack -
+- React Native + Expo + Javascript
+- Expo Router for navigation
+- Redux Toolkit for state management
+- AsyncStorage for local persistence
+- React Native WebView
+- DummyJSON API
+- Setup & Run
 
-   ```bash
-   npm install
-   ```
+Clone the repository and install dependencies:
 
-2. Start the app
+git clone <https://github.com/AdarshGuptaAndroid/NuaWomanClone.git>
+cd <NuaWomanClone>
+npm install
 
-   ```bash
-   npx expo start
-   ```
+Start the application:
 
-In the output, you'll find options to open the app in a
+npm expo start
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+Then run it on Android/iOS using the Expo development options.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+Key Decisions & Trade-offs
 
-## Get a fresh project
 
-When you're ready, run:
+- Redux Toolkit
 
-```bash
-npm run reset-project
-```
+I used Redux Toolkit because cart and product-related state needs to be shared across multiple screens. Context API would be simpler for a small app, but Redux gives a more structured approach if the application grows.
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+- Expo Router
 
-### Other setup steps
+I used Expo Router because its file-based navigation keeps the project structure simple and makes routes easier to manage.
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+- Client-side Search
 
-## Learn more
+For this assignment, I used client-side filtering because the product dataset is relatively small. In a production application, I would prefer server-side search for better scalability.
 
-To learn more about developing your project with Expo, look at the following resources:
+- Local Cart
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+The cart is maintained locally because backend cart synchronization was outside the assignment scope. In a production app, I would sync the cart with the user's account/backend.
 
-## Join the community
+- Assumptions -
+* DummyJSON is used as the product API and does not require authentication.
+* Payment and checkout are outside the scope of this assignment.
+* The Return Policy can use a static/public URL for the WebView demonstration.
 
-Join our community of developers creating universal apps.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- What I Would Improve With More Time
+
+If I had more time, I would focus on:
+
+* Better offline-first support with local product caching
+* Debounced search and advanced filtering
+* Add retry with exponential backoff to handle temporary API failures gracefully.
+* Automated unit/component testing
+* Image caching and performance optimization
+* Authentication and backend cart synchronization
+* Checkout/payment flow
+* CI/CD and crash/analytics monitoring
+
+
+Note
+
+The main focus of this assignment was to keep the implementation simple, maintainable, and scalable, while covering the requested functionality and handling common real-world cases such as API failures and network issues.
